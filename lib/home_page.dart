@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
-
 import 'dart:async';
 import 'dart:math';
 
@@ -167,7 +165,7 @@ class _HomePageState extends State<HomePage> {
 
   void startGame() {
     gameHasStarted = true;
-    Timer.periodic(Duration(milliseconds: 200), (timer) {
+    Timer.periodic(const Duration(milliseconds: 200), (timer) {
       setState(() {
         //move the snake
         moveSnake();
@@ -180,7 +178,7 @@ class _HomePageState extends State<HomePage> {
             barrierDismissible: false,
             builder: (context) {
               return AlertDialog(
-                title: Text("Game Over"),
+                title: const Text("Game Over"),
                 content: Text(
                   "Your score is: ${currentScore.toString()}",
                 ),
@@ -190,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                       SystemNavigator.pop();
                     },
                     color: Colors.pink,
-                    child: Text("Quit"),
+                    child: const Text("Quit"),
                   ),
                   MaterialButton(
                     onPressed: () {
@@ -198,7 +196,7 @@ class _HomePageState extends State<HomePage> {
                       newGame();
                     },
                     color: Colors.pink,
-                    child: Text("Play Again"),
+                    child: const Text("Play Again"),
                   ),
                 ],
               );
@@ -284,6 +282,7 @@ class _HomePageState extends State<HomePage> {
       snakePos = [283, 284, 285, 286, 287];
       foodPos = Random().nextInt(totalNumberofSquares);
       currentDirection = SnakeDirection.right;
+      currentScore = 0;
       gameHasStarted = false;
     });
   }
@@ -301,7 +300,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(top: 50),
                 child: Text(
                   "Current Score : $currentScore",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 30,
                     color: Colors.pink,
                   ),
@@ -334,16 +333,16 @@ class _HomePageState extends State<HomePage> {
               },
               child: GridView.builder(
                   itemCount: totalNumberofSquares,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: rowSize),
                   itemBuilder: (context, index) {
                     if (snakePos.contains(index)) {
-                      return SnakePixel();
+                      return const SnakePixel();
                     } else if (foodPos == index) {
-                      return FoodPixel();
+                      return const FoodPixel();
                     } else {
-                      return BlankPixel();
+                      return const BlankPixel();
                     }
                     // return Text(
                     //   index.toString(),
@@ -355,15 +354,13 @@ class _HomePageState extends State<HomePage> {
 
           //play button
           Expanded(
-            child: Container(
-              child: Center(
-                child: MaterialButton(
-                  onPressed: () {
-                    gameHasStarted ? () {} : startGame();
-                  },
-                  color: gameHasStarted ? Colors.grey : Colors.pink,
-                  child: Text("PLAY"),
-                ),
+            child: Center(
+              child: MaterialButton(
+                onPressed: () {
+                  gameHasStarted ? () {} : startGame();
+                },
+                color: gameHasStarted ? Colors.grey : Colors.pink,
+                child: const Text("PLAY"),
               ),
             ),
           ),
